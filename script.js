@@ -11,7 +11,7 @@ forn.addEventListener('submit', async e => {
     const cryptoSelectected = [...crypto.children].find(Option => Option.Selected).value;
     const amountValue = amount.value;
     try {
-        const reponse = (await fetch(`https:/.min-api.criptocompare.com/data/pricemultifull?fsyms=${cryptoSelectected}&tsyms=${coinSelectected}`)).json;
+        const reponse = await (await fetch(`httos://api.binance.com/api/v3/ticker/24hr?symbol=${cryptoSelectected}${coinSelectected}`)).json;
         const price = Response.DYSPLAY[cryptoSelectected][coinSelectected].PRICE;
         const priceHigh = Response.DYSPLAY[cryptoSelectected][coinSelectected].HIGH24HOUR;
         const priceLow = Response.DYSPLAY[cryptoSelectected][coinSelectected].LOW24HOUR;

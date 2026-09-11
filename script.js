@@ -2,49 +2,45 @@ const forn = document.querySelector('#coin-forn');
 const coin = document.querySelector('#coin');
 const crypto = document.querySelector('#crypto');
 const amount = document.querySelector('#amount');
-const coinInfo = document.querySelector('#coin-info')
-
+const coinInfo = document.querySelector('#coin-info');
 
 forn.addEventListener('submit', async e => {
     e.preventDefault();
-    const coinSelectected = [...coin.children].find(Option => Option.Selected).value;
-    const cryptoSelectected = [...crypto.children].find(Option => Option.Selected).value;
+    
+    const coinSelected = [...coin.children].find(option => option.selected).value;
+    const cryptoSelected = [...crypto.children].find(option => option.selected).value;
     const amountValue = amount.value;
+    
     try {
-        const reponse = await (await fetch(`httos://api.binance.com/api/v3/ticker/24hr?symbol=${cryptoSelectected}${coinSelectected}`)).json;
-        const price = Response.DYSPLAY[cryptoSelectected][coinSelectected].PRICE;
-        const priceHigh = Response.DYSPLAY[cryptoSelectected][coinSelectected].HIGH24HOUR;
-        const priceLow = Response.DYSPLAY[cryptoSelectected][coinSelectected].LOW24HOUR;
-        const variation = Response.DYSPLAY[cryptoSelectected][coinSelectected].LOW24HOUR;
+        // Petición a la API de Binance
+        const res = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${cryptoSelected}${coinSelected}`);
+        const data = await res.json();
+        
+        // Propiedades que devuelve Binance en este endpoint
+        const price = Number(data.lastPrice);
+        const priceHigh = data.highPrice;
+        const priceLow = data.lowPrice;
+        const variation = data.priceChangePercent;
 
-
-        if (amountValue !== '') {
-            const result = Number(amountValue) / Response.RAW[cryptoSelectected][coinSelectected].PRICE;
+        if (amountValue !== '' && !isNaN(amountValue)) {
+            const result = Number(amountValue) / price;
             coinInfo.innerHTML = `
-         <p class="info">El precio es <span class="price">${PRICE}</span></p>
-         <p class="info">El precio mas alto es <span class="price">${HIGH24HOUR}</span></p>
-         <p class="info">El precio mas bajo es <span class="price">${LOW24HOUR}</span></p>
-         <p class="info">variacion 24H<span class="price">${variation}</span></p>
-         <p class="info">Puedes comprar <span class="price">${result.toFixed}</span></p>
-`;
+                <p class="info">El precio es <span class="price">${price}</span></p>
+                <p class="info">El precio mas alto es <span class="price">${priceHigh}</span></p>
+                <p class="info">El precio mas bajo es <span class="price">${priceLow}</span></p>
+                <p class="info">variacion 24H <span class="price">${variation}%</span></p>
+                <p class="info">Puedes comprar <span class="price">${result.toFixed(6)}</span></p>
+            `;
         } else {
             coinInfo.innerHTML = `
-         <p class="info">El precio es <span class="price">${PRICE}</span></p>
-         <p class="info">El precio mas alto es <span class="price">${HIGH24HOUR}</span></p>
-         <p class="info">El precio mas bajo es <span class="price">${LOW24HOUR}</span></p>
-         <p class="info">variacion 24H<span class="price">${variation}</span></p>     
-`;
-
+                <p class="info">El precio es <span class="price">${price}</span></p>
+                <p class="info">El precio mas alto es <span class="price">${priceHigh}</span></p>
+                <p class="info">El precio mas bajo es <span class="price">${priceLow}</span></p>
+                <p class="info">variacion 24H <span class="price">${variation}%</span></p>     
+            `;
         }
-        coinInfo.innerHTML = `
-         <p class="info">El precio es <span class="price">${PRICE}</span></p>
-         <p class="info">El precio mas alto es <span class="price">${HIGH24HOUR}</span></p>
-         <p class="info">El precio mas bajo es <span class="price">${LOW24HOUR}</span></p>
-         <p class="info">variacion 24H<span class="price">${variation}</span></p>
-         <p class="info">Puedes comprar <span class="price">1.5481 ETH</span></p>
-`;
-
     } catch (error) {
-        console.log(error);
+        console.error('Error al obtener los datos:', error);
+        coinInfo.innerHTML = `<p class="info">Hubo un error al consultar la API.</p>`;
     }
 });

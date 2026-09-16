@@ -5,45 +5,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cotizador</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
-    <div id="container">
-        <img src="" alt="">
-        <div id="coin-container">
-            <form id="coin-form">
-                <div class="coin-input-container">
-                    <label for="coin">Elige tu moneda</label>
-                    <select id="coin" class="coin-input">
-                        <option selected disabled value="">selecciona una moneda</option>
-                        <option value="USD">Dolar</option>
-                        <option value="EUR">EURO</option>
-                        <option value="VES">Bolivares</option>
-                        <option value="ARS">Pesos Argentinos</option>
-                    </select>
-                </div>
+    
+    <div class="page-wrapper">
+        
+        <div id="container">
+            <img src="" alt="">
+            <div id="coin-container">
+                <form id="coin-form">
+                    <div class="coin-input-container">
+                        <label for="coin">Elige tu moneda</label>
+                        <select id="coin" class="coin-input">
+                            <option selected disabled value="">selecciona una moneda</option>
+                            <option value="USD">Dolar</option>
+                            <option value="EUR">EURO</option>
+                            <option value="VES">Bolivares</option>
+                            <option value="ARS">Pesos Argentinos</option>
+                        </select>
+                    </div>
 
-                <div class="coin-input-container">
-                    <label for="crypto">Elige tu Criptomoneda</label>
-                    <select id="crypto" class="coin-input">
-                        <option selected disabled value="">selecciona una Criptomoneda</option>
-                        <option value="BTC">Bitcoin</option>
-                        <option value="ETH">Ethereum</option>
-                        <option value="AXS">AXS</option>
-                        <option value="BNB">Binance Coin</option>
-                    </select>
-                </div>
+                    <div class="coin-input-container">
+                        <label for="crypto">Elige tu Criptomoneda</label>
+                        <select id="crypto" class="coin-input">
+                            <option selected disabled value="">selecciona una Criptomoneda</option>
+                            <option value="BTC">Bitcoin</option>
+                            <option value="ETH">Ethereum</option>
+                            <option value="AXS">AXS</option>
+                            <option value="BNB">Binance Coin</option>
+                        </select>
+                    </div>
 
-                <div class="coin-input-container">
-                    <label for="amount">Monto a calcular</label>
-                    <input type="text" class="coin-input" id="amount" placeholder="Monto">
-                </div>
+                    <div class="coin-input-container">
+                        <label for="amount">Monto a calcular</label>
+                        <input type="text" class="coin-input" id="amount" placeholder="Monto">
+                    </div>
+                    
+                    <button id="form-btn" type="submit">Cotizar</button>
+                </form>
                 
-                <button id="form-btn" type="submit">Cotizar</button>
-            </form>
-            <div id="coin-info"></div>
+                <div id="coin-info"></div>
+            </div>
         </div>
+
+        <footer id="main-footer">
+            <p>Creado por Marco Hernandez | 
+                <a href="https://github.com/MKgets22/Cotizador" target="_blank" rel="noopener noreferrer">
+                    Ver repositorio en GitHub
+                </a>
+            </p>
+        </footer>
+
     </div>
+
+    
+    <script src="app.js"></script>
 </body>
 
 </html>
